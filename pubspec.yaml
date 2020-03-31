@@ -1,8 +1,8 @@
 name: d_platform_sdk
 description: A new Flutter plugin.
 version: 0.0.1
-author:
-homepage:
+author: hrxiang<hrxiang491064739@gmail.com>
+homepage: https://github.com/hrxiang/d_platform_sdk
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
