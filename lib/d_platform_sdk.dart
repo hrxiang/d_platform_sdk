@@ -10,6 +10,7 @@ class DPlatformSdk {
   /// 回传数据
   static void listener(handler(dynamic arguments)) {
     _channel.setMethodCallHandler((MethodCall call) {
+      print('===============call===='+ call.method);
       if ("listener" == call.method && null != handler) {
         handler(call.arguments);
       }

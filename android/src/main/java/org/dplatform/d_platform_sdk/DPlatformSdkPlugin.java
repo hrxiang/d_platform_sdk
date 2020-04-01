@@ -67,12 +67,18 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
     }
 
     public static void registerWith(PluginRegistry.Registrar registrar) {
+        DPlatformSdkPlugin plugin = new DPlatformSdkPlugin(registrar.activity());
+        // 注册onNewIntent
+        registrar.addNewIntentListener(plugin);
+        //
         channel = new MethodChannel(registrar.messenger(), "d_platform_sdk");
-        channel.setMethodCallHandler(new DPlatformSdkPlugin(registrar.activity()));
+        channel.setMethodCallHandler(plugin);
+
     }
 
     @Override
     public boolean onNewIntent(Intent intent) {
+        System.out.println("============call  native plugin onNewIntent===============");
         send(Utils.getUri(intent));
         return false;
     }

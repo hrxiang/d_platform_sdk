@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:d_platform_sdk/d_platform_sdk.dart';
 import 'package:flutter/material.dart';
 
@@ -9,19 +11,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String result = "Unknow";
+
   @override
   void initState() {
     super.initState();
     DPlatformSdk.listener((data) {
+      print('=================result===========${data.runtimeType}======');
       // If the widget was removed from the tree while the asynchronous platform
       // message was in flight, we want to discard the reply rather than calling
       // setState to update our non-existent appearance.
       if (!mounted) return;
-      if (data is Map) {
-        if ("login" == data['action']) {
-          //
-        }
-      }
+      setState(() {
+        result = jsonEncode(data);
+        print('=================result===========$result======');
+      });
     });
   }
 
@@ -34,18 +38,21 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
+            Text(result),
             RaisedButton(
               onPressed: () {
                 DPlatformSdk.call(
-                  "dflatformdemo1",
+                  "d_platform_sdk_test2://login",
                   "login",
-                  "xxx.xxx.xxx",
-                  params: {},
+                  "org.dplatform.d_platform_sdk_test",
+                  params: {
+                    "userId": "1234567",
+                  },
                   downloadUrl: "www.360.com",
                 );
               },
               child: Text('获取token登录'),
-            )
+            ),
           ],
         ),
       ),
