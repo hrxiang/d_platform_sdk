@@ -42,12 +42,10 @@ class _MyAppState extends State<MyApp> {
             RaisedButton(
               onPressed: () {
                 DPlatformSdk.call(
-                  "d_platform_sdk_test2://login",
-                  "login",
-                  "org.dplatform.d_platform_sdk_test",
-                  params: {
-                    "userId": "1234567",
-                  },
+                  urlString: "d_platform_sdk_test2://login",
+                  action: "login",
+                  packageName: "org.dplatform.d_platform_sdk_test",
+                  params: {"userId": "1234567"},
                   downloadUrl: "www.360.com",
                 );
               },

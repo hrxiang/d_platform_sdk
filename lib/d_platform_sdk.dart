@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class DPlatformSdk {
@@ -18,13 +19,16 @@ class DPlatformSdk {
   }
 
   /// 当前唤起其他app获取数据
-  static void call(
-    String urlString,
-    String action,
-    String packageName, {
+  static void call({
+    @required String urlString,
+    @required String action,
+    @required String packageName,
     Map<String, String> params = const <String, String>{},
     String downloadUrl,
   }) {
+    if (null == urlString) throw Exception("urlString is null!");
+    if (null == action) throw Exception("action is null!");
+    if (null == packageName) throw Exception("packageName is null!");
     // 区分当前事件类型
     params?.putIfAbsent("action", () => action);
     // 被唤起的应用的scheme
