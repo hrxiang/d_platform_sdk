@@ -4,9 +4,11 @@ class DPlatformSdk {
   static const MethodChannel _channel = const MethodChannel('d_platform_sdk');
 
   /// 其他app唤起当前app传递数据
-  static void listener(handler(dynamic arguments)) {
+  static void listener(handler(Map<String, String> arguments)) {
     _channel.setMethodCallHandler((MethodCall call) {
-      if ("listener" == call.method && null != handler) {
+      if ("listener" == call.method &&
+          null != handler &&
+          call.arguments is Map) {
         handler(call.arguments);
       }
       return null;

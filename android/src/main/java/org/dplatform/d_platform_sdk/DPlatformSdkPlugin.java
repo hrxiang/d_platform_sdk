@@ -59,6 +59,7 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
                     }
                 }
             } else if ("listener".equals(methodCall.method)) {
+                System.out.println("DPlatformSdkPlugin============onCreate method===============");
                 send(Utils.getUri(activity));
             }
         } catch (Exception e) {
@@ -77,7 +78,7 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
 
     @Override
     public boolean onNewIntent(Intent intent) {
-        System.out.println("============call  native plugin onNewIntent===============");
+        System.out.println("DPlatformSdkPlugin============onNewIntent method===============");
         send(Utils.getUri(intent));
         return false;
     }
