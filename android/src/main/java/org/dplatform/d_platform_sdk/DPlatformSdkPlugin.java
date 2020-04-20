@@ -70,10 +70,9 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
         DPlatformSdkPlugin plugin = new DPlatformSdkPlugin(registrar.activity());
         // 注册onNewIntent
         registrar.addNewIntentListener(plugin);
-        //
+        // 创建通道
         channel = new MethodChannel(registrar.messenger(), "d_platform_sdk");
         channel.setMethodCallHandler(plugin);
-
     }
 
     @Override

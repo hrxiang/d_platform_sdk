@@ -14,7 +14,7 @@ class _MyAppState extends State<MyApp> {
   String result = "Unknow";
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
     DPlatformSdk.listener((data) {
       print('=================result===========${data.runtimeType}======');

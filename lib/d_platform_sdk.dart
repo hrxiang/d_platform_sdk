@@ -1,26 +1,21 @@
-import 'dart:async';
-
 import 'package:flutter/services.dart';
-
-typedef OnDPlatformSDKCallback = Function();
 
 class DPlatformSdk {
   static const MethodChannel _channel = const MethodChannel('d_platform_sdk');
 
-  /// 回传数据
+  /// 其他app唤起当前app传递数据
   static void listener(handler(dynamic arguments)) {
     _channel.setMethodCallHandler((MethodCall call) {
-      print('===============call===='+ call.method);
       if ("listener" == call.method && null != handler) {
         handler(call.arguments);
       }
       return null;
     });
-    // app第一次启动，原生主动调用invoke方法时，flutter还没有注册监听，所以需要主动获取一次数据
+    // 首次启动app
     _channel.invokeMethod("listener");
   }
 
-  /// 唤起scheme
+  /// 当前唤起其他app获取数据
   static void call(
     String urlString,
     String action,
@@ -34,6 +29,8 @@ class DPlatformSdk {
     params.putIfAbsent("urlString", () => urlString);
     // 被唤起的应用的包名
     params.putIfAbsent("packageName", () => packageName);
+    // 被唤起的应用的下载地址
+    params.putIfAbsent("downloadUrl", () => downloadUrl);
     // 启动scheme
     _channel.invokeMethod("call", params);
   }
