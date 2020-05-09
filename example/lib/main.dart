@@ -14,7 +14,7 @@ class _MyAppState extends State<MyApp> {
   String result = "Unknow";
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     DPlatformSdk.listener((data) {
       print('=================result===========${data.runtimeType}======');
@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
       if (!mounted) return;
       setState(() {
         result = jsonEncode(data);
-        print('=================result===========$result======');
+        print('=================action===========${data["params"]}======');
       });
     });
   }
@@ -42,9 +42,9 @@ class _MyAppState extends State<MyApp> {
             RaisedButton(
               onPressed: () {
                 DPlatformSdk.call(
-                  urlString: "d_platform_sdk_test2://login",
+                  scheme: "org.dplatform.game.cs.org.platform.demo.game://",
                   action: "login",
-                  packageName: "org.dplatform.d_platform_sdk_test",
+                  androidPackageName: "org.dplatform.d_platform_sdk_test",
                   params: {"userId": "1234567"},
                   downloadUrl: "www.360.com",
                 );

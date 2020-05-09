@@ -1,6 +1,7 @@
 package org.dplatform.d_platform_sdk;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -32,28 +33,32 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
             if ("call".equals(methodCall.method)) {
                 if (methodCall.arguments() instanceof Map) {
                     Map<String, String> map = methodCall.arguments();
-                    String urlString = map.remove("urlString");
-                    String packageName = map.remove("packageName");
+                    String scheme = map.remove("scheme");
+                    String packageName = map.remove("androidPackageName");
                     String downloadUrl = map.remove("downloadUrl");
-                    if (null != packageName) {
-                        boolean isInstalled = Utils.isInstalled(activity, packageName);
-                        if (isInstalled) {
-                            if (null != urlString) {
-                                Uri.Builder builder = Uri.parse(urlString).buildUpon();
-                                for (String key : map.keySet()) {
-                                    builder.appendQueryParameter(key, map.get(key));
+                    if (null != scheme) {
+                        Uri.Builder builder = Uri.parse(scheme).buildUpon();
+                        for (String key : map.keySet()) {
+                            builder.appendQueryParameter(key, map.get(key));
+                        }
+                        Uri uri = builder.build();
+                        if (null != packageName) {
+                            boolean isInstalled = Utils.isInstalled(activity, packageName);
+                            if (isInstalled) {
+                                call(activity, uri);
+                            } else {
+                                if (null != downloadUrl) {
+                                    Utils.openBrowser(activity, downloadUrl);
                                 }
-                                Utils.call(activity, builder.build(), new WithParameter() {
-                                    @Override
-                                    public void with(Intent intent) {
-                                        intent.setAction(Intent.ACTION_VIEW);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    }
-                                });
                             }
                         } else {
-                            if (null != downloadUrl) {
-                                Utils.openBrowser(activity, downloadUrl);
+                            try {
+                                call(activity, uri);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                if (e instanceof ActivityNotFoundException && null != downloadUrl) {
+                                    Utils.openBrowser(activity, downloadUrl);
+                                }
                             }
                         }
                     }
@@ -85,6 +90,7 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
 
     private static void send(Uri uri) {
         if (null != uri) {
+            System.out.println("DPlatformSdkPlugin===========parse=================" + Uri.decode(uri.toString()));
             Set<String> keys = uri.getQueryParameterNames();
             Map<String, String> arguments = new HashMap<>();
             if (null != keys) {
@@ -98,6 +104,16 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
             }
             channel.invokeMethod("listener", arguments);
         }
+    }
+
+    private static void call(Activity activity, Uri uri) {
+        Utils.call(activity, uri, new WithParameter() {
+            @Override
+            public void with(Intent intent) {
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+        });
     }
 }
 

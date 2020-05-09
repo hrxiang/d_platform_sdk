@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DPlatformSdk {
   static const MethodChannel _channel = const MethodChannel('d_platform_sdk');
 
   /// 其他app唤起当前app传递数据
-  static void listener(handler(Map<String, String> arguments)) {
+  static void listener(handler(dynamic arguments)) {
     _channel.setMethodCallHandler((MethodCall call) {
-      if ("listener" == call.method &&
-          null != handler &&
-          call.arguments is Map) {
-        handler(call.arguments);
+      if ("listener" == call.method && null != handler) {
+        return handler(call.arguments);
       }
       return null;
     });
@@ -20,24 +19,30 @@ class DPlatformSdk {
 
   /// 当前唤起其他app获取数据
   static void call({
-    @required String urlString,
+    @required String scheme,
     @required String action,
-    @required String packageName,
+    String androidPackageName,
+    String iosBundleId,
     Map<String, String> params = const <String, String>{},
     String downloadUrl,
-  }) {
-    if (null == urlString) throw Exception("urlString is null!");
+  }) async {
+    if (null == scheme) throw Exception("scheme is null!");
     if (null == action) throw Exception("action is null!");
-    if (null == packageName) throw Exception("packageName is null!");
+    // 被唤起的应用的scheme
+    params?.putIfAbsent("scheme", () => _buildFullScheme(scheme));
     // 区分当前事件类型
     params?.putIfAbsent("action", () => action);
-    // 被唤起的应用的scheme
-    params?.putIfAbsent("urlString", () => urlString);
     // 被唤起的应用的包名
-    params?.putIfAbsent("packageName", () => packageName);
+    params?.putIfAbsent("androidPackageName", () => androidPackageName);
+    // 被唤起的应用的包名
+    params?.putIfAbsent("iosBundleId", () => iosBundleId);
     // 被唤起的应用的下载地址
     params?.putIfAbsent("downloadUrl", () => downloadUrl);
     // 启动scheme
     _channel.invokeMethod("call", params);
+  }
+
+  static String _buildFullScheme(String scheme) {
+    return "${scheme.contains("://") ? scheme : "$scheme://do"}";
   }
 }

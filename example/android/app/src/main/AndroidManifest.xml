@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="d_platform_sdk_test1" />
+                <data android:scheme="org.dplatform.lite.wb" />
 
             </intent-filter>
         </activity>
