@@ -8,6 +8,7 @@ import android.net.Uri;
 import org.dplatform.utils.Utils;
 import org.dplatform.utils.WithParameter;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,14 +33,17 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
         try {
             if ("call".equals(methodCall.method)) {
                 if (methodCall.arguments() instanceof Map) {
-                    Map<String, String> map = methodCall.arguments();
-                    String scheme = map.remove("scheme");
-                    String packageName = map.remove("androidPackageName");
-                    String downloadUrl = map.remove("downloadUrl");
+                    Map<String, String> header = methodCall.argument("header");
+                    Map<String, Object> body = methodCall.argument("body");
+                    if (null == header) return;
+                    String scheme = header.get("scheme");
+                    String packageName = header.get("androidPackageName");
+                    String downloadUrl = header.get("downloadUrl");
                     if (null != scheme) {
                         Uri.Builder builder = Uri.parse(scheme).buildUpon();
-                        for (String key : map.keySet()) {
-                            builder.appendQueryParameter(key, map.get(key));
+                        System.out.println("==============body:" + new JSONObject(body).toString());
+                        if (null != body) {
+                            builder.appendQueryParameter("params", new JSONObject(body).toString());
                         }
                         Uri uri = builder.build();
                         if (null != packageName) {

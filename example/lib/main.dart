@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_dplatform_sdk/d_platform_sdk.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dplatform_sdk/d_platform_sdk.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,7 +45,15 @@ class _MyAppState extends State<MyApp> {
                   scheme: "org.dplatform.game.cs.org.platform.demo.game://",
                   action: "login",
                   androidPackageName: "org.dplatform.d_platform_sdk_test",
-                  params: {"userId": "1234567"},
+                  params: {
+                    "code": 0,
+                    "msg": null,
+                    "data": {
+                      "token": "tx9091",
+                      "userId": "100011",
+                      "no": 409,
+                    }
+                  },
                   downloadUrl: "www.360.com",
                 );
               },
