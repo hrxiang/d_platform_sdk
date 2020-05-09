@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:d_platform_sdk/d_platform_sdk.dart';
+import 'package:flutter_dplatform_sdk/d_platform_sdk.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
