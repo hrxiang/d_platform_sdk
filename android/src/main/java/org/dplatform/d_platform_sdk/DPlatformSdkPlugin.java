@@ -43,7 +43,14 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
                         Uri.Builder builder = Uri.parse(scheme).buildUpon();
                         System.out.println("==============body:" + new JSONObject(body).toString());
                         if (null != body) {
-                            builder.appendQueryParameter("params", new JSONObject(body).toString());
+                            //lite方式构建参数
+                            /*for (String key : body.keySet()) {
+                                if (null != body.get(key)) {
+                                    builder.appendQueryParameter(key, body.get(key).toString());
+                                }
+                            }*/
+                            // 最新版本构造参数，修复了不会将int等类型转换或为string类型
+                            builder.appendQueryParameter("commonSdkParams", new JSONObject(body).toString());
                         }
                         Uri uri = builder.build();
                         if (null != packageName) {
