@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,26 +28,29 @@ class DPlatformSdk {
     String downloadUrl,
     Map<String, dynamic> params = const <String, dynamic>{},
   }) async {
-    if (null == scheme) throw Exception("scheme is null!");
-    if (null == action) throw Exception("action is null!");
-
-    Map<String, dynamic> data = {"action": action};
-    if (null != params) {
-      data.addAll(params);
-    }
     _channel.invokeMethod("call", {
-      "header": {
-        "scheme": _buildFullScheme(scheme), // 被唤起的应用的scheme
-        "action": action, // 事件类型
-        "androidPackageName": androidPackageName, // 被唤起的应用的包名
-        "iosBundleId": iosBundleId, // 被唤起的应用的包名
-        "downloadUrl": downloadUrl, // 被唤起的应用的下载地址
-      },
-      "body": data,
+      "uri": buildFullUri(scheme: scheme, action: action, params: params),
+      // 被唤起的应用的scheme
+      "action": action,
+      // 事件类型
+      "androidPackageName": androidPackageName,
+      // 被唤起的应用的包名
+      "iosBundleId": iosBundleId,
+      // 被唤起的应用的包名
+      "downloadUrl": downloadUrl,
+      // 被唤起的应用的下载地址
     });
   }
+}
 
-  static String _buildFullScheme(String scheme) {
-    return "${scheme.contains("://") ? scheme : "$scheme://do"}";
-  }
+String buildFullUri({
+  String scheme,
+  String action,
+  Map<String, dynamic> params,
+}) {
+  if (null == scheme) throw Exception("scheme is null!");
+  if (null == action) throw Exception("action is null!");
+  params?.addAll({"aciton": action});
+  return Uri.encodeFull(
+      "${scheme.contains("://") ? scheme : "$scheme://do"}?commonSdkParams=${jsonEncode(params)}");
 }

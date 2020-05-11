@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
             RaisedButton(
               onPressed: () {
                 DPlatformSdk.call(
-                  scheme: "org.dplatform.game.cs.org.platform.demo.game://",
+                  scheme: "org.dplatform.game.cs.org.platform.demo.game",
                   action: "login",
                   androidPackageName: "org.dplatform.d_platform_sdk_test",
                   params: {

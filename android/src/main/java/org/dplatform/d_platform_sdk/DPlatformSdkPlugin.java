@@ -8,7 +8,6 @@ import android.net.Uri;
 import org.dplatform.utils.Utils;
 import org.dplatform.utils.WithParameter;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,26 +32,11 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
         try {
             if ("call".equals(methodCall.method)) {
                 if (methodCall.arguments() instanceof Map) {
-                    Map<String, String> header = methodCall.argument("header");
-                    Map<String, Object> body = methodCall.argument("body");
-                    if (null == header) return;
-                    String scheme = header.get("scheme");
-                    String packageName = header.get("androidPackageName");
-                    String downloadUrl = header.get("downloadUrl");
-                    if (null != scheme) {
-                        Uri.Builder builder = Uri.parse(scheme).buildUpon();
-                        System.out.println("==============body:" + new JSONObject(body).toString());
-                        if (null != body) {
-                            //lite方式构建参数
-                            /*for (String key : body.keySet()) {
-                                if (null != body.get(key)) {
-                                    builder.appendQueryParameter(key, body.get(key).toString());
-                                }
-                            }*/
-                            // 最新版本构造参数，修复了不会将int等类型转换或为string类型
-                            builder.appendQueryParameter("commonSdkParams", new JSONObject(body).toString());
-                        }
-                        Uri uri = builder.build();
+                    String uriStr = methodCall.argument("uri");
+                    String packageName = methodCall.argument("androidPackageName");
+                    String downloadUrl = methodCall.argument("downloadUrl");
+                    if (null != uriStr) {
+                        Uri uri = Uri.parse(uriStr);
                         if (null != packageName) {
                             boolean isInstalled = Utils.isInstalled(activity, packageName);
                             if (isInstalled) {
