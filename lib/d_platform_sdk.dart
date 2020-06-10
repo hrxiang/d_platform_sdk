@@ -1,14 +1,21 @@
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class DPlatformSdk {
   static const MethodChannel _channel = const MethodChannel('d_platform_sdk');
+  final String site;
+  final DPlatformEvn evn;
 
-  /// 其他app唤起当前app传递数据
-  static void listener(handler(dynamic arguments)) {
+  DPlatformSdk({
+    @required this.site,
+    this.evn = DPlatformEvn.RELEASE,
+  })  : assert(null != site),
+        assert(null != evn) {
+    _channel.invokeMethod("init", {"site": site, "env": evn.index});
+  }
+
+  /// 数据回传监听
+  void listener(handler(dynamic arguments)) {
     _channel.setMethodCallHandler((MethodCall call) {
       if ("listener" == call.method && null != handler) {
         return handler(call.arguments);
@@ -19,38 +26,56 @@ class DPlatformSdk {
     _channel.invokeMethod("listener");
   }
 
-  /// 当前唤起其他app获取数据
-  static void call({
-    @required String scheme,
-    @required String action,
-    String androidPackageName,
-    String iosBundleId,
-    String downloadUrl,
-    Map<String, dynamic> params = const <String, dynamic>{},
-  }) async {
-    _channel.invokeMethod("call", {
-      "uri": buildFullUri(scheme: scheme, action: action, params: params),
-      // 被唤起的应用的scheme
-      "action": action,
-      // 事件类型
-      "androidPackageName": androidPackageName,
-      // 被唤起的应用的包名
-      "iosBundleId": iosBundleId,
-      // 被唤起的应用的包名
-      "downloadUrl": downloadUrl,
-      // 被唤起的应用的下载地址
-    });
+  /// 自定义支付
+  void pay({@required PayModel model}) => call(params: model.params);
+
+  /// 通用方式
+  void call({Map<String, dynamic> params}) async {
+    _channel.invokeMethod("call", params);
   }
 }
 
-String buildFullUri({
-  String scheme,
-  String action,
-  Map<String, dynamic> params,
-}) {
-  if (null == scheme) throw Exception("scheme is null!");
-  if (null == action) throw Exception("action is null!");
-  params?.addAll({"aciton": action});
-  return Uri.encodeFull(
-      "${scheme.contains("://") ? scheme : "$scheme://do"}?commonSdkParams=${jsonEncode(params)}");
+enum DPlatformEvn {
+  DEBUG, //联调(index = 0)
+  TEST, //测试(index = 1)
+  PRO, //预发(index = 2)
+  RELEASE, //生产(index = 3)
+}
+
+class PayModel extends BaseModel {
+  final String token;
+  final String orderSn;
+  final String outUid;
+  final String channelNo;
+  final Map<String, dynamic> attrs;
+
+  PayModel({
+    @required this.channelNo,
+    @required this.orderSn,
+    @required this.token,
+    @required this.outUid,
+    this.attrs,
+  })  : assert(null != channelNo),
+        assert(null != orderSn),
+        assert(null != token),
+        assert(null != outUid),
+        super('pay') {
+    params.addAll({
+      "token": token,
+      "orderSn": orderSn,
+      "action": "pay",
+      "outUid": outUid,
+      "channelNo": channelNo,
+    });
+    params.addAll(attrs ?? {});
+  }
+}
+
+class BaseModel {
+  final String action;
+  final Map<String, dynamic> params = <String, dynamic>{};
+
+  BaseModel(this.action) : assert(null != action) {
+    params.addAll({"action": action});
+  }
 }

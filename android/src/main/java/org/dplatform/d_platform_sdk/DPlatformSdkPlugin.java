@@ -1,15 +1,14 @@
 package org.dplatform.d_platform_sdk;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 
-import org.dplatform.utils.Utils;
-import org.dplatform.utils.WithParameter;
-import org.jetbrains.annotations.NotNull;
+import org.dplatform.sdk.DPlatformApi;
+import org.dplatform.sdk.DPlatformApiCallback;
+import org.dplatform.sdk.DPlatformApiFactory;
+import org.dplatform.sdk.DPlatformEvn;
+import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,48 +18,43 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.PluginRegistry;
 
 
-public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.NewIntentListener {
+public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.NewIntentListener, DPlatformApiCallback {
     private Activity activity;
     private static MethodChannel channel;
+    private DPlatformApi api;
 
     private DPlatformSdkPlugin(Activity activity) {
         this.activity = activity;
     }
 
     @Override
-    public void onMethodCall(@NotNull MethodCall methodCall, @NotNull MethodChannel.Result result) {
+    public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
         try {
-            if ("call".equals(methodCall.method)) {
-                if (methodCall.arguments() instanceof Map) {
-                    String uriStr = methodCall.argument("uri");
-                    String packageName = methodCall.argument("androidPackageName");
-                    String downloadUrl = methodCall.argument("downloadUrl");
-                    if (null != uriStr) {
-                        Uri uri = Uri.parse(uriStr);
-                        if (null != packageName) {
-                            boolean isInstalled = Utils.isInstalled(activity, packageName);
-                            if (isInstalled) {
-                                call(activity, uri);
-                            } else {
-                                if (null != downloadUrl) {
-                                    Utils.openBrowser(activity, downloadUrl);
-                                }
-                            }
-                        } else {
-                            try {
-                                call(activity, uri);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                if (e instanceof ActivityNotFoundException && null != downloadUrl) {
-                                    Utils.openBrowser(activity, downloadUrl);
-                                }
-                            }
+            if ("init".equals(methodCall.method)) {
+                if (methodCall.arguments instanceof Map) {
+                    String site = methodCall.argument("site");
+                    Integer index = methodCall.argument("evn");
+                    if (null != site) {
+                        api = DPlatformApiFactory.createApi(activity, site, getPlatformEvn(index));
+                    }
+                }
+
+            } else if ("call".equals(methodCall.method)) {
+                if (null != api) {
+                    if (methodCall.arguments() instanceof Map) {
+                        Map<String, Object> params = methodCall.arguments();
+                        Set<String> keys = params.keySet();
+                        for (String key : keys) {
+                            api.putParameter(key, params.get(key));
                         }
                     }
+                    api.sendReq();
                 }
             } else if ("listener".equals(methodCall.method)) {
                 System.out.println("DPlatformSdkPlugin============onCreate method===============");
-                send(Utils.getUri(activity));
+                if (null != api) {
+                    api.setCallback(this);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,36 +73,35 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
     @Override
     public boolean onNewIntent(Intent intent) {
         System.out.println("DPlatformSdkPlugin============onNewIntent method===============");
-        send(Utils.getUri(intent));
+        if (null != api) {
+            api.onNewIntent(intent);
+        }
         return false;
     }
 
-    private static void send(Uri uri) {
-        if (null != uri) {
-            System.out.println("DPlatformSdkPlugin===========parse=================" + Uri.decode(uri.toString()));
-            Set<String> keys = uri.getQueryParameterNames();
-            Map<String, String> arguments = new HashMap<>();
-            if (null != keys) {
-                String value;
-                for (String key : keys) {
-                    value = uri.getQueryParameter(key);
-                    if (null != value) {
-                        arguments.put(key, value);
-                    }
-                }
-            }
-            channel.invokeMethod("listener", arguments);
-        }
+    @Override
+    public void onResult(JSONObject object) {
+        channel.invokeMethod("listener", object.toString());
     }
 
-    private static void call(Activity activity, Uri uri) {
-        Utils.call(activity, uri, new WithParameter() {
-            @Override
-            public void with(Intent intent) {
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-        });
+    private static DPlatformEvn getPlatformEvn(Integer index) {
+        DPlatformEvn evn;
+        if (null == index) index = 0;
+        switch (index) {
+            case 0:
+                evn = DPlatformEvn.DEBUG;
+                break;
+            case 1:
+                evn = DPlatformEvn.TEST;
+                break;
+            case 2:
+                evn = DPlatformEvn.PRO;
+                break;
+            default:
+                evn = DPlatformEvn.RELEASE;
+                break;
+        }
+        return evn;
     }
 }
 
