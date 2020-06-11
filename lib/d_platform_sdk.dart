@@ -27,12 +27,19 @@ class DPlatformSdk {
   }
 
   /// 自定义支付
-  void pay({@required PayModel model}) => call(params: model.params);
+  void pay({@required PayModel model}) {
+    if (null != model?.channelNo &&
+        null != model?.orderSn &&
+        (null != model?.token || null != model?.outUid)) {
+      call(params: model.params);
+    } else {
+      throw Exception("Illegal Parameter!");
+    }
+  }
 
   /// 通用方式
-  void call({Map<String, dynamic> params}) async {
-    _channel.invokeMethod("call", params);
-  }
+  void call({Map<String, dynamic> params}) =>
+      _channel.invokeMethod("call", params);
 }
 
 enum DPlatformEvn {
@@ -46,26 +53,25 @@ class PayModel extends BaseModel {
   final String token;
   final String orderSn;
 
-//  final String outUid;
+  final String outUid;
   final String channelNo;
   final Map<String, dynamic> attrs;
 
+  /// token和outUid必传其一
   PayModel({
     @required this.channelNo,
     @required this.orderSn,
-    @required this.token,
-//    @required this.outUid,
+    this.token,
+    this.outUid,
     this.attrs,
   })  : assert(null != channelNo),
         assert(null != orderSn),
-        assert(null != token),
-//        assert(null != outUid),
+        assert(null != token || null != outUid),
         super('pay') {
     params.addAll({
       "token": token,
       "orderSn": orderSn,
-      "action": "pay",
-//      "outUid": outUid,
+      "outUid": outUid,
       "channelNo": channelNo,
     });
     params.addAll(attrs ?? {});
