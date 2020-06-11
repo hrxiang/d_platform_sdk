@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
                     orderSn: "9527",
 //                    outUid: "0099991",
                     channelNo: "10001",
-//                    token: "000001",
+                    token: "000001",
 //                    attrs: {
 //                      "key0": "value0",
 //                      "key1": "value1",
