@@ -18,7 +18,6 @@ public class SwiftDPlatformSdkPlugin: NSObject, FlutterPlugin {
         }
         guard
             let action = args["action"] as? String,
-            let token = args["token"] as? String,
             let orderSn = args["orderSn"] as? String,
             let channelNo = args["channelNo"] as? String
         else {
@@ -26,7 +25,16 @@ public class SwiftDPlatformSdkPlugin: NSObject, FlutterPlugin {
             return
         }
         
-        if "pay" == action {
+        if "pay" != action {
+            print("Unknown action: \(action)")
+            return
+        }
+
+        let token = args["token"] as? String
+        let outUid = args["outUid"] as? String
+        if outUid != nil {
+            
+        } else {
             
         }
     }
