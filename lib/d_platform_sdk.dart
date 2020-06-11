@@ -45,7 +45,8 @@ enum DPlatformEvn {
 class PayModel extends BaseModel {
   final String token;
   final String orderSn;
-  final String outUid;
+
+//  final String outUid;
   final String channelNo;
   final Map<String, dynamic> attrs;
 
@@ -53,18 +54,18 @@ class PayModel extends BaseModel {
     @required this.channelNo,
     @required this.orderSn,
     @required this.token,
-    @required this.outUid,
+//    @required this.outUid,
     this.attrs,
   })  : assert(null != channelNo),
         assert(null != orderSn),
         assert(null != token),
-        assert(null != outUid),
+//        assert(null != outUid),
         super('pay') {
     params.addAll({
       "token": token,
       "orderSn": orderSn,
       "action": "pay",
-      "outUid": outUid,
+//      "outUid": outUid,
       "channelNo": channelNo,
     });
     params.addAll(attrs ?? {});
