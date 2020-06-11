@@ -11,7 +11,11 @@ class DPlatformSdk {
     this.evn = DPlatformEvn.RELEASE,
   })  : assert(null != site),
         assert(null != evn) {
-    _channel.invokeMethod("init", {"site": site, "env": evn.index});
+    if (null != site && null != evn) {
+      _channel.invokeMethod("init", {"site": site, "env": evn.index});
+    } else {
+      throw Exception(">>>>>>>>>>>>>>>>IllegalArgumentException>>>>>>>>>>");
+    }
   }
 
   /// 数据回传监听
@@ -33,7 +37,7 @@ class DPlatformSdk {
         (null != model?.token || null != model?.outUid)) {
       call(params: model.params);
     } else {
-      throw Exception("Illegal Parameter!");
+      throw Exception(">>>>>>>>>>>>>>>>IllegalArgumentException>>>>>>>>>>");
     }
   }
 
