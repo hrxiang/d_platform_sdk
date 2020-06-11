@@ -45,7 +45,7 @@ class DPlatformSdk {
 enum DPlatformEvn {
   DEBUG, //联调(index = 0)
   TEST, //测试(index = 1)
-  PRO, //预发(index = 2)
+  PRE, //预发(index = 2)
   RELEASE, //生产(index = 3)
 }
 

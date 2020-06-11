@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f60149dd-fdff-45db-979a-7a54c24eaa2e" name="Default Changelist" comment="sdk升级，修复字段自动转成string的bug">
-      <change beforePath="$PROJECT_DIR$/.idea/flutter_dplatform_sdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flutter_dplatform_sdk.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_dplatform_sdk/.idea/flutter_dplatform_sdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_dplatform_sdk/.idea/flutter_dplatform_sdk.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_dplatform_sdk/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_dplatform_sdk/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_dplatform_sdk/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_dplatform_sdk/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftDPlatformSdkPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftDPlatformSdkPlugin.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/d_platform_sdk.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/d_platform_sdk.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,11 +19,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/d_platform_sdk.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="150">
+              <caret line="53" column="23" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ios/Classes/SwiftDPlatformSdkPlugin.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="256">
+              <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -37,8 +42,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>listener</find>
-      <find>d_platform_sdk</find>
       <find>@&quot;channelNo&quot;: [NSString stringWithFormat:@&quot;%@&quot;, channelNo]</find>
+      <find>d_platform_sdk</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -64,8 +69,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="x" value="35" />
+    <option name="y" value="23" />
+    <option name="width" value="1405" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -82,6 +89,41 @@
             <path>
               <item name="flutter_dplatform_sdk" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_dplatform_sdk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_dplatform_sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_dplatform_sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_dplatform_sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_dplatform_sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="Classes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_dplatform_sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_dplatform_sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="Classes" type="462c0819:PsiDirectoryNode" />
+              <item name="native_dplatform_sdk_ios" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_dplatform_sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_dplatform_sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="Classes" type="462c0819:PsiDirectoryNode" />
+              <item name="native_dplatform_sdk_ios" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flutter_dplatform_sdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_dplatform_sdk" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="Classes" type="462c0819:PsiDirectoryNode" />
+              <item name="native_dplatform_sdk_ios" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="DPlatformSDKiOS" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flutter_dplatform_sdk" type="b2602c69:ProjectViewProjectNode" />
@@ -109,7 +151,7 @@
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591866840732" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591869586585" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -146,7 +188,7 @@
       <updated>1585620003414</updated>
       <workItem from="1591780868719" duration="4595000" />
       <workItem from="1591842705561" duration="8564000" />
-      <workItem from="1591867604136" duration="22000" />
+      <workItem from="1591867604136" duration="1844000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1585621341724</created>
@@ -222,7 +264,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13240000" />
+    <option name="totallyTimeSpent" value="15062000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -235,9 +277,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="23" width="1405" height="877" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25898752" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25898752" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -249,7 +292,7 @@
       <window_info anchor="bottom" id="Run" order="1" weight="0.4448575" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49928468" weight="0.32961586" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49928468" weight="0.377943" />
+      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49928468" weight="0.37707007" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5007153" side_tool="true" weight="0.32961586" />
       <window_info anchor="bottom" id="Flutter Performance" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49928468" weight="0.32961586" />
@@ -405,15 +448,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ios/Classes/SwiftDPlatformSdkPlugin.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+        <state relative-caret-position="256">
+          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/d_platform_sdk.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="150">
+          <caret line="53" column="23" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
