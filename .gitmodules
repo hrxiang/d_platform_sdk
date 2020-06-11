@@ -1,0 +1,3 @@
+[submodule "ios/Classes/native_dplatform_sdk_ios"]
+	path = ios/Classes/native_dplatform_sdk_ios
+	url = https://github.com/tang4595/native_dplatform_sdk_ios.git
