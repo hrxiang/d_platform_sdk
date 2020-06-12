@@ -80,7 +80,7 @@ public class SwiftDPlatformSdkPlugin: NSObject, FlutterPlugin {
         let channelNo = (args["channelNo"] as? String) ?? ""
         if outUid != nil {
             DPlatformApi.sendPayReq(withOrderSn: orderSn, outUid: outUid, channelNo: channelNo, extraParams: args)
-        } else token != nil {
+        } else if token != nil {
             DPlatformApi.sendPayReq(withOrderSn: orderSn, token: token, channelNo: channelNo)
         } else {
             print("The required parameters are missing: token&outUid")
