@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String result = "Unknow";
-  DPlatformSdk sdk = DPlatformSdk(site: "CS", evn: DPlatformEvn.DEBUG);
+  DPlatformSdk sdk = DPlatformSdk(site: "CS", evn: DPlatformEvn.TEST);
 
   @override
   void initState() {
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
                 sdk.pay(
                   model: PayModel(
                     orderSn: "9527",
-//                    outUid: "0099991",
+                    outUid: "0099991",
                     channelNo: "10001",
                     token: "000001",
 //                    attrs: {

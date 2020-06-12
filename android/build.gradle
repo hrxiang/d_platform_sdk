@@ -47,6 +47,6 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'com.github.hrxiang:native_dplatform_sdk:1.0.8'
+    api 'com.github.hrxiang:native_dplatform_sdk:1.1.0'
 //    implementation(name: 'dplatform_sdk-v1.0.7', ext: 'aar')
 }

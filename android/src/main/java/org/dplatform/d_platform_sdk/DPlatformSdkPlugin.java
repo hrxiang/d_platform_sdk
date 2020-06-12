@@ -33,7 +33,8 @@ public class DPlatformSdkPlugin implements MethodCallHandler, PluginRegistry.New
             if ("init".equals(methodCall.method)) {
                 if (methodCall.arguments instanceof Map) {
                     String site = methodCall.argument("site");
-                    Integer index = methodCall.argument("evn");
+                    Integer index = methodCall.argument("env");
+                    System.out.println("DPlatformSdkPlugin==========init=====" + site + "|" + index);
                     if (null != site) {
                         api = DPlatformApiFactory.createApi(activity, site, getPlatformEvn(index));
                     }
