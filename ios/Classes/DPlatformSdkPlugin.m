@@ -1,5 +1,5 @@
 #import "DPlatformSdkPlugin.h"
-#import <d_platform_sdk/flutter_platform_sdk-Swift.h>
+#import <flutter_dplatform_sdk/flutter_platform_sdk-Swift.h>
 
 @implementation DPlatformSdkPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {

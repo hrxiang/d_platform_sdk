@@ -34,7 +34,7 @@ public class SwiftDPlatformSdkPlugin: NSObject, FlutterPlugin {
 
     func handleInit(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard
-            var args = call.arguments as? [String : Any]
+            let args = call.arguments as? [String : Any]
         else {
             print("Invalid flutter call.")
             return
