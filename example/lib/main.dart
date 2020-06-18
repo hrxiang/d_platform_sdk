@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String result = "Unknow";
-  DPlatformSdk _sdk = DPlatformSdk(site: "CS", evn: DPlatformEvn.TEST);
+  DPlatformSdk _sdk = DPlatformSdk(site: "TW", evn: DPlatformEvn.DEBUG);
 
   @override
   void initState() {
