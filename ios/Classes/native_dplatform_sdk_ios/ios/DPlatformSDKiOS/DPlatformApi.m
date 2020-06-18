@@ -144,7 +144,7 @@ static NSString *handleOpenUrlNotiKey = @"__dplatform_pro_handle_openurl__";
     NSAssert(outUid != NULL, @"The 'outUid' could not be null.");
     NSAssert(channelNo != NULL, @"The 'channelNo' could not be null.");
     
-    NSURL *url=[NSURL URLWithString:[[DPlatformApi genBaseUrl] stringByAppendingString:@"app/userCenter/security/createToken"]];
+    NSURL *url = [NSURL URLWithString:[[DPlatformApi genBaseUrl] stringByAppendingString:@"app/userCenter/security/createToken"]];
     NSMutableDictionary *reqParams = [NSMutableDictionary dictionaryWithDictionary:@{
         @"channelNo": channelNo,
         @"outUid": outUid
