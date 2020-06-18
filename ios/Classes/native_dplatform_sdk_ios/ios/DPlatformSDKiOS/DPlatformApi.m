@@ -3,7 +3,6 @@
 static Environment environment = EnvironmentProd;
 static NSString *appStation;
 
-///static NSString *baseUrlTest = @"http://172.29.24.139:8081/"; /* DEV */
 static NSString *baseUrlTest = @"http://139.9.184.9/";
 static NSString *baseUrlDebug = @"http://139.9.201.236/";
 static NSString *baseUrlStage = @"https://dpl-pre.dpay.tech/";
