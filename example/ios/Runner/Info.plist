@@ -53,7 +53,7 @@
     		<string>Editor</string>
     		<key>CFBundleURLSchemes</key>
    			<array>
-    			<string>org.dplatform.game.ht.com.example.sdk</string>
+    			<string>org.dplatform.game.ht.org.dplatform.dPlatformSdkExample</string>
     		</array>
     	</dict>
     </array>
