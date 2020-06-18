@@ -41,5 +41,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+    	<string>dplatform</string>
+    	<string>org.dplatform.lite.ht</string>
+   	</array>
+   	<key>CFBundleURLTypes</key>
+   	<array>
+    	<dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+   			<array>
+    			<string>org.dplatform.game.ht.com.example.sdk</string>
+    		</array>
+    	</dict>
+    </array>
 </dict>
 </plist>

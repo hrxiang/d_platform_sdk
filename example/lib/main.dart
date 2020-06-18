@@ -10,14 +10,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String result = "Unknow";
-  DPlatformSdk sdk = DPlatformSdk(site: "CS", evn: DPlatformEvn.TEST);
+  DPlatformSdk _sdk = DPlatformSdk(site: "CS", evn: DPlatformEvn.TEST);
 
   @override
   void initState() {
     super.initState();
 
     // 数据回传监听
-    sdk.listener((data) {
+    _sdk.listener((data) {
       print('=================result===========${data.runtimeType}======$data');
       // If the widget was removed from the tree while the asynchronous platform
       // message was in flight, we want to discard the reply rather than calling
@@ -40,13 +40,15 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             Text(result),
             RaisedButton(
+
+              // 发起支付
               onPressed: () {
-                sdk.pay(
+                _sdk.pay(
                   model: PayModel(
                     orderSn: "9527",
                     outUid: "0099991",
                     channelNo: "10001",
-                    token: "000001",
+//                    token: "000001",
 //                    attrs: {
 //                      "key0": "value0",
 //                      "key1": "value1",
