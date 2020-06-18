@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
 
 class DPlatformSdk {
   static const MethodChannel _channel = const MethodChannel('d_platform_sdk');
@@ -22,6 +23,9 @@ class DPlatformSdk {
   void listener(handler(dynamic arguments)) {
     _channel.setMethodCallHandler((MethodCall call) {
       if ("listener" == call.method && null != handler) {
+        if (Platform.isIOS) {
+          ///解析key-val
+        }
         return handler(call.arguments);
       }
       return null;

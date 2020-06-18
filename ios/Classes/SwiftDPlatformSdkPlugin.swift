@@ -69,7 +69,7 @@ public class SwiftDPlatformSdkPlugin: NSObject, FlutterPlugin {
             return
         }
         guard
-            "pay" != action
+            "pay" == action
         else {
             print("Unknown action: \(action)")
             return

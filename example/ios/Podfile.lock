@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_dplatform_sdk (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_dplatform_sdk (from `.symlinks/plugins/flutter_dplatform_sdk/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_dplatform_sdk:
+    :path: ".symlinks/plugins/flutter_dplatform_sdk/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_dplatform_sdk: 63cc22a81539f82f92e7abd3055a6594dfe5cff2
+
+PODFILE CHECKSUM: e45c292f618eeca3034958d33b444b6e1249b55f
+
+COCOAPODS: 1.7.2
