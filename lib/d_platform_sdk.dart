@@ -24,7 +24,11 @@ class DPlatformSdk {
     _channel.setMethodCallHandler((MethodCall call) {
       if ("listener" == call.method && null != handler) {
         if (Platform.isIOS) {
-          ///解析key-val
+          if (call.arguments is String) {
+            return handler(Uri.parse(call.arguments).queryParameters);
+          } else {
+            return handler(call.arguments);
+          }
         }
         return handler(call.arguments);
       }
